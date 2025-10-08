@@ -148,7 +148,7 @@ body {
   opacity: 1;
 }
 
-/* quando tiver uma classe de vazio */
+/* quando ter uma classe de vazio */
 #title-wrapper.is-empty {
   font-size: 16px;
   font-weight: 600;
