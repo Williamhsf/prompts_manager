@@ -55,3 +55,13 @@
     Crie a função updateAllEditableStates() para atualizar o estado de todos os elementos, e configure ouvintes de evento input para o prompt-title e prompt-content para dentro de uma função chamada attachAllEditableHandlers atualizar seus respectivos wrappers em tempo real.
 
     Por fim, implemente uma função init() que chame attachAllEditableHandlers e execute a inicialização.
+
+#### Implementar abertura e fechamento da sidebar
+
+    Implemente a abertura e o fechamento da #sym:aside.sidebar utilizando o #sym:btnOpen para abrir e o #sym:btnCollapse para fechar. Faça isso usando apenas JavaScript e não modifique o CSS
+
+#### Gerar o conteúdo da sidebar
+
+    Reecrie o HTML e CSS do sidebar_content com o input de search com o icone svg de search do lado esquerdo, button de novo prompt abaixo do input e uma linha abaixo do botão com um border-bottom do próprio search-container. Faça exatamente igual está aqui:
+
+    [LINK DA SELEÇÃO DO SEARCH-CONTAINER DO FIGMA]
