@@ -42,3 +42,16 @@
 
     [LINK DA SELEÇÃO MAIN DO FIGMA]
 
+# Aula 02
+
+### 💡 Prompts para Agilizar o Projeto
+
+#### Gerar o código do Placeholder do título e conteúdo
+
+    Crie um objeto chamado elements que selecione por id os elementos prompt-title, prompt-content, title-wrapper e content-wrapper.
+
+    Implemente uma função updateEditableWrapperState(element, wrapper) que verifique se o elemento de texto possui conteúdo, se não houver adicione a classe is-empty.
+
+    Crie a função updateAllEditableStates() para atualizar o estado de todos os elementos, e configure ouvintes de evento input para o prompt-title e prompt-content para dentro de uma função chamada attachAllEditableHandlers atualizar seus respectivos wrappers em tempo real.
+
+    Por fim, implemente uma função init() que chame attachAllEditableHandlers e execute a inicialização.

@@ -3,14 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
     <link rel="stylesheet" href="style.css" />
+
     <title>Prompts</title>
   </head>
   <body>
@@ -27,26 +26,37 @@
           <button id="btn-save" class="btn-primary btn w-150">Salvar</button>
         </header>
 
-        <div data-placeholder="Titulo do prompt" class="editable-wrapper" id="title-wrapper">
-          <h1 id="prompt-title" contenteditable="true" class="prompt-title">
+        <div
+          data-placeholder="Título do prompt"
+          class="editable-wrapper"
+          id="title-wrapper"
+        >
+          <h1 id="prompt-title" class="prompt-title" contenteditable="true">
             ⚡ Planejamento de tarefas semanais
           </h1>
         </div>
 
-        <div data-placeholder="Conteudo do prompt" class="editable-wrapper" id="content-wrapper">
-          <div id="prompt-content" class="prompt-content" contenteditable="true">
-            Me ajude a organizar minha semana de forma equilibrada. <br />
+        <div
+          data-placeholder="Conteúdo do prompt ..."
+          class="editable-wrapper"
+          id="content-wrapper"
+        >
+          <div
+            id="prompt-content"
+            class="prompt-content"
+            contenteditable="true"
+          >
+            Me ajude a organizar minha semana de forma equilibrada.<br />
             Distribua minhas tarefas profissionais e pessoais em blocos de tempo
-            realistas. <br />
+            realistas.<br />
             Sugira horários para foco profundo e momentos para pausas
-            estratégicas. <br />
-            Inclua dicas de priorização. No final, entregue o plano em formato de
-            checklist diário para fácil acompanhamento.
+            estratégicas.<br />
+            Inclua dicas de priorização. No final, entregue o plano em formato
+            de checklist diário para fácil acompanhamento.
           </div>
         </div>
-
-        <!-- <span>1:32</span> -->
       </main>
     </div>
+    <script src="script.js"></script>
   </body>
 </html>
