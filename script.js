@@ -4,7 +4,7 @@ const STORAGE_KEY = "prompts_storage"
 // estado carregar os prompts salvos no navegador e exibir
 const state = {
   prompts: [],
-  selectedId: null, // vai identificar se tem algum prompt selecionado
+  selectedId: null // vai identificar se tem algum prompt selecionado
 }
 
 // Seleção dos elementos HTML por id
@@ -20,7 +20,7 @@ const elements = {
   list: document.getElementById("prompt-list"),
   search: document.getElementById("search-input"),
   btnNew: document.getElementById("btn-new"),
-  // btnCopy: document.getElementById("btn-copy"),
+  btnCopy: document.getElementById("btn-copy")
 }
 
 // Atualiza o estado do wrapper conforme o conteúdo do elemento
@@ -73,18 +73,24 @@ function save() {
   // saber se o usuario esta criando um novo prompt ou se está salvando
   if (state.selectedId) {
     // Editando um prompt existente
+    const existingPrompt = state.prompts.find((p) => p.id === state.selectedId)
+
+    if (existingPrompt) {
+      existingPrompt.title = title || "Sem título"
+      existingPrompt.content = content || "Sem conteúdo"
+    }
   } else {
     // criando um novo prompt
     const newPrompt = {
       id: Date.now().toString(36),
       title,
-      content,
+      content
     }
 
     state.prompts.unshift(newPrompt) // adiciona no inicio do array
     state.selectedId = newPrompt.id
   }
-  
+
   renderList(elements.search.value) // renderizar a lista
   persist() // salvar os dados no navegador
   alert("Dados salvos com sucesso!")
@@ -112,11 +118,13 @@ function load() {
 
 // create prompt item - criar o item da lista
 function createPromptItem(prompt) {
+  const tmp = document.createElement("div")
+  tmp.innerHTML = prompt.content
   return `
       <li class="prompt-item" data-id="${prompt.id}" data-action="select">
         <div class="prompt-item-content">
           <span class="prompt-item-title">${prompt.title}</span>
-          <span class="prompt-item-description">${prompt.content}</span>
+          <span class="prompt-item-description">${tmp.textContent}</span>
         </div>
 
         <button class="btn-icon" title="Remover" data-action="remove">
@@ -127,7 +135,7 @@ function createPromptItem(prompt) {
 }
 
 // renderizar a lista de prompts
-function renderList() {
+function renderList(filterText = "") {
   const filteredPrompts = state.prompts
     .filter((prompt) =>
       prompt.title.toLowerCase().includes(filterText.toLowerCase().trim())
@@ -138,9 +146,18 @@ function renderList() {
   elements.list.innerHTML = filteredPrompts
 }
 
+function newPrompt() {
+  state.selectedId = null
+  elements.promptTitle.textContent = ""
+  elements.promptContent.textContent = ""
+  updateAllEditableStates() // atualizar o estado dos wrappers
+  elements.promptTitle.focus() // colocar o foco no título
+}
+
 // eventos
 elements.btnSave.addEventListener("click", save)
-elements.btnNew.addEventListener("click", function () {})
+elements.btnNew.addEventListener("click", newPrompt)
+elements.btnCopy.addEventListener("click", function () {})
 
 elements.search.addEventListener("input", function (event) {
   renderList(event.target.value)
@@ -153,21 +170,21 @@ elements.list.addEventListener("click", function (event) {
   if (!item) return // se nao tiver item, sai da função
 
   const id = item.getAttribute("data-id") // pegar o id do prompt
-
+  state.selectedId = id // atualizar o id selecionado
   if (removeBtn) {
     // remover o prompt
     state.prompts = state.prompts.filter((p) => p.id !== id) // filtrar o array, removendo o prompt com o id correspondente
     renderList(elements.search.value) // renderizar a lista novamente
     persist() // salvar os dados no navegador
     return
-  } 
-  
+  }
+
   if (event.target.closest("[data-action='select']")) {
     const prompt = state.prompts.find((p) => p.id === id) // encontrar o prompt pelo id
 
     if (prompt) {
       elements.promptTitle.textContent = prompt.title
-      elements.promptContent.textContent = prompt.content
+      elements.promptContent.innerHTML = prompt.content
       updateAllEditableStates() // atualizar o estado dos wrappers
     }
   }
@@ -188,8 +205,7 @@ function init() {
   elements.btnOpen.addEventListener("click", openSidebar)
   elements.btnCollapse.addEventListener("click", closeSidebar)
 }
-
 // Executa a inicialização
 init()
 
-// 1:14:00
+// 1:35:00
