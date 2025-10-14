@@ -33,13 +33,13 @@ function updateEditableWrapperState(element, wrapper) {
 
 // --- Controle da sidebar (abrir / fechar) ---
 function openSidebar() {
-  elements.sidebar.style.display = "flex"
-  elements.btnOpen.style.display = "none"
+  elements.sidebar.classList.add("open")
+  elements.sidebar.classList.remove("collapsed")
 }
 
 function closeSidebar() {
-  elements.sidebar.style.display = "none"
-  elements.btnOpen.style.display = "block"
+  elements.sidebar.classList.remove("open")
+  elements.sidebar.classList.add("collapsed")
 }
 
 // Atualiza o estado de todos os elementos editáveis
@@ -154,10 +154,26 @@ function newPrompt() {
   elements.promptTitle.focus() // colocar o foco no título
 }
 
+function copySelected() {
+  try {
+    const content = elements.promptContent
+
+    if (!navigator.clipboard) {
+      alert("A API de área de transferência não é suportada neste navegador.")
+      return
+    }
+    
+    navigator.clipboard.writeText(content.innerText) // innerText - pega o texto sem as tags html
+    alert("Conteúdo copiado para a área de transferência!")
+  } catch (error) {
+    console.log("Erro ao copiar para a área de transferência.", error)
+  }
+}
+
 // eventos
 elements.btnSave.addEventListener("click", save)
 elements.btnNew.addEventListener("click", newPrompt)
-elements.btnCopy.addEventListener("click", function () {})
+elements.btnCopy.addEventListener("click", copySelected)
 
 elements.search.addEventListener("input", function (event) {
   renderList(event.target.value)
@@ -198,8 +214,8 @@ function init() {
   updateAllEditableStates() // atualizar o estado dos wrappers
 
   // Abrir sidebar, botão de abrir oculto
-  elements.sidebar.style.display = ""
-  elements.btnOpen.style.display = "none"
+  elements.sidebar.classList.remove("open")
+  elements.sidebar.classList.remove("collapsed")
 
   // Anexa ouvintes de evento click para abrir e fechar a sidebar
   elements.btnOpen.addEventListener("click", openSidebar)
